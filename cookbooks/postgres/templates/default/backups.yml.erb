@@ -6,6 +6,6 @@
 :dbpass: <%= @dbpass %>
 :env: <%= @env %>
 :databases:
-<% @node[:applications].each_key do |app| %>
-<%= "- #{app}_#{@node[:environment][:framework_env]}" %>
+<% @databases.each do |database| %>
+<%= "- #{database}" %>
 <% end %>

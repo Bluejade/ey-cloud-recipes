@@ -1,0 +1,21 @@
+= DESCRIPTION:
+
+Postgresql 8.3 Cookbook.  The goal is to start up a decently configured postgresql recipe and symlink database.yml so that your application knows where to go.
+
+= WARNINGS:
+
+*I ABSOLUTELY REMOVE THE MYSQL EYBACKUP CRONTAB*
+
+If this behavior is unacceptable to you, please comment it out in recipes/eybackup.rb at line #29
+
+= REPLICATION STATUS:
+
+Not working, don't add a slave as it won't do anything with this recipe at this time.
+
+= MISC: 
+
+Add require_recipe "postgres::default" to main/recipes/default.rb and it'll replace mysql effectively for you and give you a Postgres server that's well decently tuned/configured automatically.  If you need to modify or add things to postgresql.conf please add it to /db/postgresql/8.3/custom.conf instead as that file will *NOT* be overwritten.  Note it's not a Chef maintained file either, so please take care to back it up or remember it's contents sanely.
+
+= WARRANTY: 
+
+Currently Postgresql is not supported on AppCloud.  This recipe is unsupported at this time, it should work 'as is'.  I currently do use some features that are not properly exposed which may in the future break things, I will try and keep this up to date if this happens.
