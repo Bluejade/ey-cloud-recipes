@@ -2,7 +2,7 @@
 # Cookbook Name:: resque
 # Recipe:: default
 #
-if ['solo', 'util', 'app_master'].include?(node[:instance_role])
+if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
   
   package "sys-apps/ey-monit-scripts" do
     action :install
