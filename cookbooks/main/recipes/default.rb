@@ -4,6 +4,7 @@
 #  }
 #end
 
+require_recipe 'nginx_config'
 
 # uncomment if you want to run postgres recipe
 require_recipe 'postgres'
