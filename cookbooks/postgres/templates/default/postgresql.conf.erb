@@ -82,7 +82,7 @@ checkpoint_timeout = <%= @checkpoint_timeout %>
 
 #archive_mode = off		# allows archiving to be done
 				# (change requires restart)
-#archive_command = ''		# command to use to archive a logfile segment
+archive_command = '/bin/true'		# command to use to archive a logfile segment
 #archive_timeout = 0		# force a logfile segment switch after this
 				# time; 0 is off
 

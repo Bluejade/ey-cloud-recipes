@@ -1,5 +1,5 @@
 postgres_version = '8.3'
-postgres_root    = '/var/lib/postgresql'
+postgres_root    = '/db/postgresql'
 
 execute "remove kernel.shmmax from sysctl" do
   command "grep -v kernel.shmmax /etc/sysctl.conf >> /tmp/sysctl.conf"

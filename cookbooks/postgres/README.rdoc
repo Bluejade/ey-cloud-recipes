@@ -2,6 +2,10 @@
 
 Postgresql 8.3 Cookbook.  The goal is to start up a decently configured postgresql recipe and symlink database.yml so that your application knows where to go.
 
+= REQUIREMENTS:
+
+This Cookbook makes use of 'dnapi'; if you wish to use this cookbook you need to also copy dnapi/libraries/dnapi.rb to your repository as well.  If you don't do this, it *WILL* fail.
+
 = WARNINGS:
 
 *I ABSOLUTELY REMOVE THE MYSQL EYBACKUP CRONTAB*

@@ -1,5 +1,5 @@
 postgres_version = '8.3'
-postgres_root    = '/var/lib/postgresql'
+postgres_root    = '/db/postgresql'
 
 template "#{postgres_root}/#{postgres_version}/data/postgresql.conf" do
   source "postgresql.conf.erb"
@@ -58,4 +58,36 @@ execute "postgresql-restart" do
     :template => "#{postgres_root}/#{postgres_version}/data/pg_hba.conf")
 
   only_if "/etc/init.d/postgresql-#{postgres_version} status"
+end
+
+directory "/var/lib/postgresql/.ssh" do
+  action :create
+  owner 'postgres'
+  group 'postgres'
+  mode 0700
+  action :create
+end
+
+template "/var/lib/postgresql/.ssh/id_rsa" do
+  source "ssh.erb"
+  owner "postgres"
+  group "postgres"
+  mode 0600
+  variables({
+    :key => node[:internal_ssh_private_key]
+  })
+end
+
+template "/var/lib/postgresql/.ssh/authorized_keys" do
+  source "ssh.erb"
+  owner "postgres"
+  group "postgres"
+  mode 0600
+  variables({
+    :key => node[:internal_ssh_public_key]
+  })
+end
+
+user "postgres" do
+  action :unlock
 end
