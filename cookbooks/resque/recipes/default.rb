@@ -29,7 +29,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
       group 'root' 
       mode 0644 
       source "monitrc.conf.erb" 
-      variables({ 
+      variables({
                   :num_workers => worker_count,
                   :app_name => app, 
                   :rails_env => node[:environment][:framework_env] 
@@ -47,8 +47,8 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
 
     execute "ensure-resque-is-setup-with-monit" do 
       command %Q{ 
-    monit reload 
-    } 
+      monit reload 
+      } 
     end
 
     execute "restart-resque" do 
