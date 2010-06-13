@@ -11,6 +11,7 @@ template "/etc/.postgresql.backups.yml" do
   owner 'root'
   group 'root'
   mode 0600
+  backup 0
   source "backups.yml.erb"
   variables({
     :dbuser => node[:users].first[:username],

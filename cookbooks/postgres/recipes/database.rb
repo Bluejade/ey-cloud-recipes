@@ -1,5 +1,6 @@
 # Setup database.yml
 dbtype = 'postgresql'
+
 if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
 node.engineyard.apps.each do |app|
 
@@ -7,6 +8,7 @@ node.engineyard.apps.each do |app|
     owner node.engineyard.environment.ssh_username
     group node.engineyard.environment.ssh_username
     mode 0655
+    backup 0
     source "database.yml.erb"
     variables({
       :dbuser => node.engineyard.environment.ssh_username,
