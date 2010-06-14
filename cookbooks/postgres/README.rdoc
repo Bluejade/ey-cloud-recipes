@@ -14,7 +14,7 @@ If this behavior is unacceptable to you, please comment it out in recipes/eyback
 
 = REPLICATION STATUS:
 
-Not working, don't add a slave as it won't do anything with this recipe at this time.
+Still Not Working, will need to debug further.  Please do not attempt to add a Slave Instance at this time with this recipe.
 
 = MISC: 
 
