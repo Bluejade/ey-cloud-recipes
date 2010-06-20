@@ -16,7 +16,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
     source "redis.conf.erb"
     variables({
                 :basedir => '/data/redis',
-                :logfile => '/data/redis/redis.log',
+                :logfile => '/data/redis/redis2.log',
                 :bind_address => '127.0.0.1', # '0.0.0.0' if you want redis available to the outside world
                 :port  => '6379',# change if you want to listen on another port
                 :loglevel => 'debug',
