@@ -45,16 +45,16 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
       end
     end
 
-    execute "ensure-resque-is-setup-with-monit" do 
-      command %Q{ 
-      monit reload 
-      } 
+    execute "ensure-resque-is-setup-with-monit" do
+      command %Q{
+      monit reload
+      }
     end
 
-    execute "restart-resque" do 
-      command %Q{ 
-      echo "sleep 20 && monit -g #{app}_resque restart all" | at now 
-    } 
-    end 
+    execute "restart-resque" do
+      command %Q{
+        echo "sleep 20 && monit -g #{app}_resque restart all" | at now
+      }
+    end
   end
 end
