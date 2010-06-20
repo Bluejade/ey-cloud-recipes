@@ -19,7 +19,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
   when 'c1.medium': worker_count = 3
   when 'c1.xlarge': worker_count = 8
   else 
-    worker_count = 4
+    worker_count = 3
   end
   
 
