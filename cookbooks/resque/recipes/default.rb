@@ -32,8 +32,8 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
       variables({
                   :num_workers => worker_count,
                   :app_name => app, 
-                  :rails_env => 'production'
-                })
+                  :rails_env => node[:environment][:framework_env] 
+                }) 
     end
 
     worker_count.times do |count|
