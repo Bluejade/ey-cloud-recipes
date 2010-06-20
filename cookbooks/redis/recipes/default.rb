@@ -19,7 +19,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
                 :logfile => '/data/redis/redis.log',
                 :bind_address => '127.0.0.1', # '0.0.0.0' if you want redis available to the outside world
                 :port  => '6379',# change if you want to listen on another port
-                :loglevel => 'notice',
+                :loglevel => 'debug',
                 :timeout => 3000,
                 :sharedobjects => 'no'
               })
