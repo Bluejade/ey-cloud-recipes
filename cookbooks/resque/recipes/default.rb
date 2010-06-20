@@ -53,7 +53,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
 
     execute "restart-resque" do 
       command %Q{ 
-      echo "sleep 5 && monit -g #{app}_resque restart all" | at now 
+      echo "sleep 120 && monit -g #{app}_resque restart all" | at now 
     } 
     end 
   end
