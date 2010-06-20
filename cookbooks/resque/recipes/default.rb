@@ -21,8 +21,6 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
   else 
     worker_count = 3
   end
-  # debug
-  worker_count = 0
   
 
   node[:applications].each do |app, data|
