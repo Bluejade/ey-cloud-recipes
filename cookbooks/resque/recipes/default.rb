@@ -41,8 +41,22 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
         owner node[:owner_name]
         group node[:owner_name]
         mode 0644
-        source "resque_wildcard.conf.erb"
+        source 'QUEUE=rendered_docs'
       end
+    end
+
+    # Background importing is very DB write intensive, and it takes a long
+    # time. Separate the background import task from the document generation
+    # tasks so that if someone starts uploading a lot of legacy files, they
+    # don't starve PDF generation. Also, only run a single import process (per
+    # application server) so that we don't overwhelm PostgreSQL with writes
+    # (which could be undone by having multiple application servers, in which
+    # case a utility server could help)
+    template "/data/#{app}/shared/config/resque_bg_import.conf" do
+      owner node[:owner_name]
+      group node[:owner_name]
+      mode 0644
+      source 'QUEUE=background_import'
     end
 
     execute "ensure-resque-is-setup-with-monit" do
