@@ -41,7 +41,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
         owner node[:owner_name]
         group node[:owner_name]
         mode 0644
-        source 'QUEUE=rendered_docs'
+        source 'resque_rendered_docs.conf.erb'
       end
     end
 
@@ -56,7 +56,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
       owner node[:owner_name]
       group node[:owner_name]
       mode 0644
-      source 'QUEUE=background_import'
+      source 'resque_background_import.conf.erb'
     end
 
     execute "ensure-resque-is-setup-with-monit" do
