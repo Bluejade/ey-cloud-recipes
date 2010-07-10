@@ -24,13 +24,15 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
   
 
   node[:applications].each do |app, data|
+    # num_workers = worker_count + 1 because we launch an extra worker dedicated
+    # only to background importing
     template "/etc/monit.d/resque_#{app}.monitrc" do 
       owner 'root' 
       group 'root' 
       mode 0644 
       source "monitrc.conf.erb" 
       variables({
-                  :num_workers => worker_count,
+                  :num_workers => worker_count + 1,
                   :app_name => app, 
                   :rails_env => node[:environment][:framework_env] 
                 }) 
@@ -52,7 +54,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
     # application server) so that we don't overwhelm PostgreSQL with writes
     # (which could be undone by having multiple application servers, in which
     # case a utility server could help)
-    template "/data/#{app}/shared/config/resque_bg_import.conf" do
+    template "/data/#{app}/shared/config/resque_#{worker_count}.conf" do
       owner node[:owner_name]
       group node[:owner_name]
       mode 0644
