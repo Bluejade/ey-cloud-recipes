@@ -5,43 +5,52 @@
 
 if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
 
-  package "dev-db/redis" do
-    action :install
-  end
+enable_package "dev-db/redis" do
+  version "1.3.12_pre1"
+end
 
-  template "/etc/redis.conf" do
-    owner 'root'
-    group 'root'
-    mode 0644
-    source "redis.conf.erb"
-    variables({
-                :basedir => '/data/redis',
-                :logfile => '/data/redis/redis.log',
-                :bind_address => '127.0.0.1', # '0.0.0.0' if you want redis available to the outside world
-                :port  => '6379',# change if you want to listen on another port
-                :loglevel => 'notice',
-                :timeout => 300000,
-                :sharedobjects => 'no'
-              })
-  end
+package "dev-db/redis" do
+  version "1.3.12_pre1"
+  action :install
+end
 
-  directory "/data/redis" do
-    owner node[:owner_name]
-    group node[:owner_name]
-    mode 0755
-    recursive true
-  end
+directory "/data/redis" do
+  owner 'redis'
+  group 'redis'
+  mode 0755
+  recursive true
+end
 
-  gem_package "ezmobius-redis-rb" do
-    source "http://gems.github.com"
-    action :install
-  end
+template "/etc/redis_util.conf" do
+  owner 'root'
+  group 'root'
+  mode 0644
+  source "redis.conf.erb"
+  variables({
+    :pidfile => '/var/run/redis_util.pid',
+    :basedir => '/data/redis',
+    :logfile => '/data/redis/redis.log',
+    :port  => '6379',
+    :loglevel => 'notice',
+    :timeout => 300000,
+  })
+end
 
-  execute "ensure-redis-is-running" do
-    command %Q{
-    /usr/bin/redis-server /etc/redis.conf
-  }
-    not_if "pgrep redis-server"
-  end
+template "/data/monit.d/redis_util.monitrc" do
+  owner 'root'
+  group 'root'
+  mode 0644
+  source "redis.monitrc.erb"
+  variables({
+    :profile => '1',
+    :configfile => '/etc/redis_util.conf',
+    :pidfile => '/var/run/redis_util.pid',
+    :logfile => '/data/redis',
+    :port => '6379',
+  })
+end
 
+execute "monit reload" do
+  action :run
+end
 end
