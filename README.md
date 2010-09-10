@@ -1,5 +1,5 @@
 ey-cloud-recipes
-===============
+================
 This is a repository of some basic recipes for EY-Cloud using chef to deploy, setup, and configure common tools for Rails applications.
 
 
@@ -15,4 +15,3 @@ Follow these steps to use custom deployment recipes with your applications.
 * Once you have completed these steps, each rebuild will run the your
   recipes after the default Engine Yard recipes have run. When you
   update your recipes, just re-run `ey recipes upload -e ENV`.
-
