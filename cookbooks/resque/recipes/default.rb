@@ -6,7 +6,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
   
   package "sys-apps/ey-monit-scripts" do
     action :install
-    version "0.17"
+    version "0.18.2"
   end
 
   execute "install resque gem" do
@@ -69,7 +69,7 @@ if ['solo', 'util', 'app', 'app_master'].include?(node[:instance_role])
 
     execute "restart-resque" do
       command %Q{
-        echo "sleep 20 && monit -g #{app}_resque restart all" | at now
+        echo "monit stop all -g #{app}_resque && sleep 20 && monit start all -g #{app}_resque" | at now
       }
     end
   end
